@@ -1,0 +1,88 @@
+{% extends 'tweet/base.html' %}
+{% block nav %}
+    {% include 'tweet/navbar.html' %}
+{% endblock %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+
+                <div class="card hovercard">
+                    <div class="cardheader">
+
+                    </div>
+                    <div class="avatar">
+                        <img alt=""
+                             src="https://cdn3.iconfinder.com/data/icons/smileys-people-smiley-essential/48/v-35-512.png">
+                    </div>
+                    <div class="info">
+                        <div class="title">
+                            {{ user_profile.first_name }} {{ user_profile.last_name }}
+                        </div>
+                        <div class="desc">Username: {{ user_profile.username }}</div>
+                        <div class="desc">Mail: {{ user_profile.email }}</div>
+                        <div class="desc">Messages Sent: {{ msg }}</div>
+                    </div>
+                    <div class="bottom">
+                        <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac"
+                           target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm" rel="publisher" href="https://plus.google.com/+ahmshahnuralam"
+                           target="_blank">
+                            <i class="fab fa-google-plus"></i>
+                        </a>
+                        <a class="btn btn-primary btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam"
+                           target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam"
+                           target="_blank">
+                            <i class="fab fa-behance"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row>">
+            <a href="{% url "change_password" %}">
+                <button class="btn btn-outline-info" type="button">Change Password</button>
+            </a>
+            <a href="{% url "edit_profile" user_profile.id %}">
+                <button class="btn btn-outline-info" type="button">Edit Profile</button>
+            </a>
+            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target=".multi-collapse"
+                    aria-expanded="false"
+                    aria-controls="{% for msg in msgs %} msg-{{ msg.id }} {% endfor %}">My Messages
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% if not msgs %}
+                You don't have any posts yet. Go to All Messages page and write somethig.
+            {% endif %}
+        </div>
+        {% for msg in msgs %}
+            <div class="row">
+                <div class="col">
+                    <div class="collapse multi-collapse" id="msg-{{ msg.id }}">
+                        <div class="card card-body">
+                            <div class="chat_ib">
+                                <h5>
+                                    <span class="chat_date">{{ msg.creation_date }}</span>
+                                </h5>
+                                <p>{{ msg.content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

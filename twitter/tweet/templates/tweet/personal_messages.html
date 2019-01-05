@@ -1,0 +1,17 @@
+{% for pvr_message in pvr_messages %}
+    {% if pvr_message.to_user == user or pvr_message.from_user == user %}
+        <div class="{% if pvr_message.from_user == user %} outgoing_msg {% else %} incoming_msg{% endif %}">
+            <div class="{% if pvr_message.from_user == user %} sent_msg {% else %} received_msg{% endif %}">
+                {% if pvr_message.from_user != user %}
+                    <div class="received_withd_msg">
+                        <p>{{ pvr_message.content }}</p>
+                        <span class="time_date"> {{ pvr_message.creation_date }}</span>
+                    </div>
+                {% else %}
+                    <p>{{ pvr_message.content }}</p>
+                    <span class="time_date"> {{ pvr_message.creation_date }}</span>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,31 @@
+{% extends 'tweet/base.html' %}
+{% block nav %}
+    {% include 'tweet/navbar.html' %}
+{% endblock %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class=row">
+            <div class="chat">
+                <section class="sidebar">
+                    <div class="user-info">
+                        {% include 'tweet/user.html' %}
+                    </div>
+                    <div class="friends-list">
+                        {% include 'tweet/users_list.html' %}
+                    </div>
+                </section>
+
+                <section class="main">
+                    <div class="message-list">
+                        {% include 'tweet/message_list.html' %}
+                    </div>
+                    {% include 'tweet/add_message.html' %}
+                </section>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

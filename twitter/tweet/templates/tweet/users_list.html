@@ -1,0 +1,9 @@
+<h4>Users List</h4>
+{% for u in users %}
+    {% if u.username != user.username %}
+        <div class="user">
+            <span><a href="{% url "user_info" u.id %}">{{ u.first_name }} {{ u.last_name }}</a></span>
+        </div>
+
+    {% endif %}
+{% endfor %}

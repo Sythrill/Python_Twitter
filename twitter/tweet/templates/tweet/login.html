@@ -1,0 +1,19 @@
+{% extends 'tweet/base.html' %}
+{% block content %}
+    <div class="container" style="display: flex">
+        <div class=row">
+            <div class="login_form" style="margin-left: 22vw">
+                <fieldset>
+                    <legend style="padding: 20px">Logowanie do Twittera</legend>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Log In">
+                    </form>
+                    <br>
+                    <p>Need account? Click <a href="{% url "create_user" %}">here</a></p>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+{% endblock %}

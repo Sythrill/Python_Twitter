@@ -1,0 +1,55 @@
+{% for message in messages %}
+
+    <div class="chat_list">
+        <div class="chat_ib">
+            <h5>
+                <b>Created by:</b> {{ message.created_by }}
+                <span class="chat_date">{{ message.creation_date }}</span>
+            </h5>
+            <p>{{ message.content }}</p>
+            <h5>
+                <span>
+                {% if message.is_read == True %}
+                    <a href="{% url "mark" message.id %}"><i class="fa fa-envelope-open" aria-hidden="true"></i></a>
+                {% else %}
+                    <a href="{% url "mark" message.id %}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                {% endif %}
+                </span>
+            </h5>
+            <button class="add-comment" type="button" name="comment_btn" data-id="{% url "add_comment" message.pk %}">
+                <i class="fa fa-comment" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    {% for comment in comments %}
+        {% if message.id == comment.message.id %}
+            <div class="comment_list">
+                <div class="comment_ib">
+                    <h5>
+                        <b>Created by:</b> {{ comment.created_by }}
+                        <span class="comment_date">{{ comment.creation_date }}</span>
+                    </h5>
+                    <p>{{ comment.content }}</p>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% endfor %}
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".add-comment").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+        });
+    });
+</script>

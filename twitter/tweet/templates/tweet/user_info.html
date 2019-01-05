@@ -1,0 +1,61 @@
+{% extends 'tweet/base.html' %}
+{% block nav %}
+    {% include 'tweet/navbar.html' %}
+{% endblock %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+
+                <div class="card hovercard">
+                    <div class="cardheader">
+
+                    </div>
+                    <div class="avatar">
+                        <img alt=""
+                             src="https://cdn3.iconfinder.com/data/icons/smileys-people-smiley-essential/48/v-35-512.png">
+                    </div>
+                    <div class="info">
+                        <div class="title">
+                            {{ about_user.first_name }} {{ about_user.last_name }}
+                        </div>
+                        <div class="desc">Username: {{ about_user.username }}</div>
+                        <div class="desc">Mail: {{ about_user.email }}</div>
+                        <div class="desc">Messages Sent: {{ messages }}</div>
+                    </div>
+                    <div class="bottom">
+                        <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac"
+                           target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm" rel="publisher" href="https://plus.google.com/+ahmshahnuralam"
+                           target="_blank">
+                            <i class="fab fa-google-plus"></i>
+                        </a>
+                        <a class="btn btn-primary btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam"
+                           target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam"
+                           target="_blank">
+                            <i class="fab fa-behance"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <section class="main scrollable">
+                <div class="message-list">
+                    {% include 'tweet/personal_messages.html' %}
+                </div>
+                    {% include "tweet/add_message.html" %}
+            </section>
+        </div>
+    </div>
+{% endblock %}
