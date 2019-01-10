@@ -6,19 +6,30 @@
                 <b>Created by:</b> {{ message.created_by }}
                 <span class="chat_date">{{ message.creation_date }}</span>
             </h5>
-            <p>{{ message.content }}</p>
-            <h5>
-                <span>
+            <p class="post_content">{{ message.content }}</p>
+            <span class="buttons_bar">
                 {% if message.is_read == True %}
-                    <a href="{% url "mark" message.id %}"><i class="fa fa-envelope-open" aria-hidden="true"></i></a>
+                    <a href="{% url "mark" message.id %}"><button class="add-comment" type="button"><i
+                            class="fa fa-envelope-open" aria-hidden="true"></i></button></a>
                 {% else %}
-                    <a href="{% url "mark" message.id %}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                    <a href="{% url "mark" message.id %}"><button class="add-comment" type="button"><i
+                            class="fa fa-envelope" aria-hidden="true"></i></button></a>
                 {% endif %}
+                <button class="add-comment" type="button" name="comment_btn" data-id="{% url "add_comment" message.pk %}">
+                    <i class="fa fa-comment" aria-hidden="true"></i>
+                </button>
+                {% if message in likes %}
+                    <a href="{% url "like" message.id %}"><button class="add-comment" type="button" name="like_btn">
+                        <i class="fas fa-heart"></i>
+                    </button></a>
+                {% else %}
+                    <a href="{% url "like" message.id %}"><button class="add-comment" type="button" name="like_btn">
+                        <i class="far fa-heart"></i>
+                    </button></a>
+                {% endif %}
+                {{ message.like_set.count }}
                 </span>
-            </h5>
-            <button class="add-comment" type="button" name="comment_btn" data-id="{% url "add_comment" message.pk %}">
-                <i class="fa fa-comment" aria-hidden="true"></i>
-            </button>
+
         </div>
     </div>
     {% for comment in comments %}

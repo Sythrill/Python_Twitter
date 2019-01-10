@@ -26,6 +26,7 @@ urlpatterns = [
     path("create_user/", CreateUserView.as_view(), name="create_user"),
     path("add_message/", AddMessageView.as_view(), name="add_message"),
     path("mark/<int:id>/", MarkMessageView.as_view(), name="mark"),
+    path("like/<int:msg_id>/", LikeMessageView.as_view(), name="like"),
     path("create/<int:message_id>/", AddCommentView.as_view(), name="add_comment"),
     path("user_info/<int:user_id>/", GetUserInfoView.as_view(), name="user_info"),
     path("user_profile/<int:user_id>", GetUserProfileView.as_view(), name="user_profile"),

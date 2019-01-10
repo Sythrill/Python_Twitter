@@ -2,7 +2,7 @@ from bootstrap_modal_forms.mixins import PassRequestMixin
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -63,6 +63,11 @@ class AddMessageView(LoginRequiredMixin, View):
         messages = Message.objects.all().order_by("-creation_date")
         comments = Comment.objects.all().order_by("creation_date")
         users = User.objects.all().order_by("username")
+        likes = []
+        for msg in messages:
+            user_likes_this = msg.like_set.filter(user=request.user)
+            for like in user_likes_this:
+                likes.append(like.message)
         return render(request, "tweet/posts_list.html", locals())
 
     def post(self, request):
@@ -87,6 +92,13 @@ class MarkMessageView(LoginRequiredMixin, View):
         else:
             message.is_read = False
         message.save()
+        return redirect("add_message")
+
+
+class LikeMessageView(LoginRequiredMixin, View):
+
+    def get(self, request, msg_id):
+        Like.objects.get_or_create(user=request.user, message_id=msg_id)
         return redirect("add_message")
 
 
@@ -174,3 +186,4 @@ class EditUserProfileView(LoginRequiredMixin, View):
         else:
             messages.error(request, "An error occured. Try again.")
         return render(request, "tweet/edit_profile.html", locals())
+

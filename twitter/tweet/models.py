@@ -28,3 +28,9 @@ class PersonalMessage(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="from_user")
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="to_user")
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.ForeignKey(Message, on_delete=models.CASCADE, default="1")
+    created = models.DateTimeField(auto_now_add=True)

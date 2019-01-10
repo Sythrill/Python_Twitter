@@ -1,4 +1,7 @@
 <h4>Current User</h4>
 <p>
-    {{ user.first_name }} {{ user.last_name }}
+    {{ user.first_name }} {{ user.last_name }}<br>
+</p>
+<p>
+    Posts: {{ user.message_set.count }}
 </p>
