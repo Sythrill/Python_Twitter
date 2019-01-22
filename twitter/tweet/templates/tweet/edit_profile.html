@@ -10,7 +10,7 @@
         <div class="row">
             <div class="edit_form">
                 <h4>Edit Your Profile</h4>
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button class="btn btn-outline-success pull-right" type="submit">Save changes</button>

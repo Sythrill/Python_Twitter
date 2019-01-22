@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from tweet.views import *
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -32,4 +34,4 @@ urlpatterns = [
     path("user_profile/<int:user_id>", GetUserProfileView.as_view(), name="user_profile"),
     path("password/", ChangeUserPasswordView.as_view(), name="change_password"),
     path("edit_profile/<int:user_id>/", EditUserProfileView.as_view(), name="edit_profile")
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

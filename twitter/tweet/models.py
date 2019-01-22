@@ -6,6 +6,7 @@ from django.db import models
 class User(AbstractUser):
     USERNAME_FIELD = 'email'
     email = models.EmailField(('email address'), unique=True)
+    image = models.FileField(upload_to="profile_img", blank=True)
     REQUIRED_FIELDS = ["username"]
 
 

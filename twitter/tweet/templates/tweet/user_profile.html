@@ -15,8 +15,12 @@
 
                     </div>
                     <div class="avatar">
+                        {% if user_profile.image %}
+                            <img alt="" src="{{ user_profile.image.url }}">
+                        {% else %}
                         <img alt=""
                              src="https://cdn3.iconfinder.com/data/icons/smileys-people-smiley-essential/48/v-35-512.png">
+                        {% endif %}
                     </div>
                     <div class="info">
                         <div class="title">
@@ -64,10 +68,16 @@
     </div>
     <div class="container">
         <div class="row">
+            <p>tu będą wykresiki</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
             {% if not msgs %}
                 You don't have any posts yet. Go to All Messages page and write somethig.
             {% endif %}
         </div>
+        <div class="user-messages scrollable">
         {% for msg in msgs %}
             <div class="row">
                 <div class="col">
@@ -84,5 +94,7 @@
                 </div>
             </div>
         {% endfor %}
+        </div>
     </div>
+
 {% endblock %}

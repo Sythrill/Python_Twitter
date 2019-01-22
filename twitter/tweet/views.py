@@ -146,6 +146,7 @@ class GetUserProfileView(LoginRequiredMixin, View):
         user_profile = User.objects.get(pk=user_id)
         msg = Message.objects.filter(created_by=user_profile).count()
         msgs = Message.objects.filter(created_by=user_profile).order_by("-creation_date")
+        likes = Like.objects.filter(user=user_id)
         return render(request, "tweet/user_profile.html", locals())
 
 
@@ -174,13 +175,14 @@ class EditUserProfileView(LoginRequiredMixin, View):
 
     def post(self, request, user_id):
         edit_user = User.objects.get(pk=user_id)
-        form = EditUserForm(request.POST, instance=edit_user)
+        form = EditUserForm(request.POST, request.FILES, instance=edit_user)
         if form.is_valid():
             edit_user.username = request.POST.get("username")
             edit_user.email = request.POST.get("email")
             edit_user.first_name = request.POST.get("first_name")
             edit_user.last_name = request.POST.get("last_name")
-            edit_user.save(update_fields=["username", "email", "first_name", "last_name"])
+            edit_user.image = request.FILES.get('image')
+            edit_user.save(update_fields=["username", "email", "first_name", "last_name", "image"])
             messages.success(request, "Your profile was successfully updated!")
             return redirect("user_profile", edit_user.id)
         else:

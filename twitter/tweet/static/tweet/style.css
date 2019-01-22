@@ -7,10 +7,13 @@ body {
     padding: 0;
 }
 
+.page-footer {
+    background-color: #05728f;
+}
 .chat {
     display: flex;
     flex-direction: row;
-    height: 90vh;
+    height: 85vh;
     margin-top: 20px;
 }
 
@@ -515,11 +518,16 @@ body {
 }
 
 .scrollable {
-    height: 50vh;
     overflow-y: scroll;
-
+    overflow-x: hidden;
+    height: 450px;
 }
 
 .password_form, .edit_form {
     margin-top: 50px;
+}
+
+.user-messages {
+    height: 44vh;
+
 }
