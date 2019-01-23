@@ -31,20 +31,23 @@
                         <div class="desc">Messages Sent: {{ msg }}</div>
                     </div>
                     <div class="bottom">
-                        <a class="btn btn-primary btn-twitter btn-sm" {% if user_profile.twitter == "" %}href="#"
+                        <a class="btn btn-primary btn-twitter btn-sm"
+                           {% if user_profile.twitter == "" or user_profile.twitter is None %}href="#"
                            {% else %}href="{{ user_profile.twitter }}" target="_blank"{% endif %}>
                             <i class="fab fa-twitter"></i>
                         </a>
                         <a class="btn btn-danger btn-sm" rel="publisher"
-                           {% if user_profile.google == "" %}href="#"
+                           {% if user_profile.google == "" or user_profile.google is None %}href="#"
                            {% else %}href="{{ user_profile.google }}" target="_blank"{% endif %}>
                             <i class="fab fa-google-plus"></i>
                         </a>
-                        <a class="btn btn-primary btn-sm" rel="publisher" {% if user_profile.facebook == "" %}href="#"
+                        <a class="btn btn-primary btn-sm" rel="publisher"
+                           {% if user_profile.facebook == "" or user_profile.facebook is None %}href="#"
                            {% else %}href="{{ user_profile.facebook }}" target="_blank"{% endif %}>
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a class="btn btn-warning btn-sm" rel="publisher" {% if user_profile.behance == "" %}href="#"
+                        <a class="btn btn-warning btn-sm" rel="publisher"
+                           {% if user_profile.behance == "" or user_profile.behance is None %}href="#"
                            {% else %}href="{{ user_profile.behance }}" target="_blank"{% endif %}>
                             <i class="fab fa-behance"></i>
                         </a>
