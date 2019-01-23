@@ -13,11 +13,11 @@ class LoginUserForm(forms.Form):
 
 class CreateUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    image = forms.FileField()
+
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'image']
+        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name']
 
     def save(self, commit=True):
         user = super(CreateUserForm, self).save(commit=False)
@@ -61,6 +61,10 @@ class AddPvrMsgForm(forms.ModelForm):
         }
 
 class EditUserForm(forms.ModelForm):
+    twitter = forms.CharField(required=False)
+    facebook = forms.CharField(required=False)
+    google = forms.CharField(required=False)
+    behance = forms.CharField(required=False)
     class Meta:
         model = User
-        fields = ["username", "email", "first_name", "last_name", "image"]
+        fields = ["username", "email", "first_name", "last_name", "image", "twitter", "facebook", "google", "behance"]

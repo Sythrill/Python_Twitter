@@ -7,6 +7,10 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     email = models.EmailField(('email address'), unique=True)
     image = models.FileField(upload_to="profile_img", blank=True)
+    twitter = models.URLField(max_length=256, null=True, blank=True)
+    facebook = models.URLField(max_length=256, null=True, blank=True)
+    google = models.URLField(max_length=256, null=True, blank=True)
+    behance = models.URLField(max_length=256, null=True, blank=True)
     REQUIRED_FIELDS = ["username"]
 
 

@@ -182,7 +182,13 @@ class EditUserProfileView(LoginRequiredMixin, View):
             edit_user.first_name = request.POST.get("first_name")
             edit_user.last_name = request.POST.get("last_name")
             edit_user.image = request.FILES.get('image')
-            edit_user.save(update_fields=["username", "email", "first_name", "last_name", "image"])
+            edit_user.twitter = request.POST.get("twitter")
+            edit_user.google = request.POST.get("google")
+            edit_user.facebook = request.POST.get("facebook")
+            edit_user.behance = request.POST.get("behance")
+            edit_user.save(
+                update_fields=["username", "email", "first_name", "last_name", "image", "twitter", "google", "facebook",
+                               "behance"])
             messages.success(request, "Your profile was successfully updated!")
             return redirect("user_profile", edit_user.id)
         else:
