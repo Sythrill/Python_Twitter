@@ -1,10 +1,109 @@
 {% extends 'tweet/base.html' %}
+<script>
+    {% block jquery %}
+        var endpoint = 'api/charts/';
+        var defaultData = [];
+        var messagesData = [];
+        var labels = [];
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            success: function (data) {
+                labels = data.labels;
+                defaultData = data.all;
+                messagesData = data.user;
+                setChart()
+            },
+            error: function (error_data) {
+                console.log("error");
+                console.log(error_data)
+            }
+        });
+        function setChart() {
+            var ctx = document.getElementById("myChart");
+            var ctx2 = document.getElementById("myChart2");
+            var myChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'All messages last 7 days',
+                        data: defaultData,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Your activity last 7 days',
+                        data: messagesData,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    {% endblock %}
+</script>
 {% block nav %}
     {% include 'tweet/navbar.html' %}
 {% endblock %}
 {% block title %}
 
 {% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -70,18 +169,14 @@
             </button>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <p>tu będą wykresiki</p>
-        </div>
-    </div>
+
     <div class="container">
         <div class="row">
             {% if not msgs %}
                 You don't have any posts yet. Go to All Messages page and write somethig.
             {% endif %}
         </div>
-        <div class="user-messages scrollable">
+        <div class="user-messages scrollable_message">
         {% for msg in msgs %}
             <div class="row">
                 <div class="col">
@@ -100,5 +195,17 @@
         {% endfor %}
         </div>
     </div>
-
+    <div class="container">
+        <div class='row'>
+            <h3 style="margin: 0 auto">Last 7 Days Statistics</h3>
+            <div class='col-sm-12' url-endpoint='{% url "data_charts" %}'>
+                <div class='col-sm-6'>
+                    <canvas id="myChart" width="100px" height="50px"></canvas>
+                </div>
+                <div class='col-sm-6'>
+                    <canvas id="myChart2" width="100px" height="50px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

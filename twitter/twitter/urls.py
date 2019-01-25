@@ -33,5 +33,6 @@ urlpatterns = [
     path("user_info/<int:user_id>/", GetUserInfoView.as_view(), name="user_info"),
     path("user_profile/<int:user_id>", GetUserProfileView.as_view(), name="user_profile"),
     path("password/", ChangeUserPasswordView.as_view(), name="change_password"),
-    path("edit_profile/<int:user_id>/", EditUserProfileView.as_view(), name="edit_profile")
+    path("edit_profile/<int:user_id>/", EditUserProfileView.as_view(), name="edit_profile"),
+    path("user_profile/api/charts/", DataForAllMessagesChartsView.as_view(),name="data_charts"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

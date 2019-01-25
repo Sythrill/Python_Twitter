@@ -1,3 +1,6 @@
+import datetime
+import itertools
+
 from bootstrap_modal_forms.mixins import PassRequestMixin
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
@@ -8,11 +11,20 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView
-from django.db.models import Q
+from django.db.models import Q, Count
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from tweet.forms import *
 from tweet.models import *
 
+
+def date_generator():
+    from_date = datetime.datetime.today()
+    while True:
+        yield from_date
+        from_date = from_date - datetime.timedelta(days=1)
 
 class LoginUserView(View):
     def get(self, request):
@@ -195,3 +207,29 @@ class EditUserProfileView(LoginRequiredMixin, View):
             messages.error(request, "An error occured. Try again.")
         return render(request, "tweet/edit_profile.html", locals())
 
+
+class DataForAllMessagesChartsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        labels = []
+        all_messages = []
+        user_messages = []
+        dates = itertools.islice(date_generator(), 7)
+        for date in dates:
+            labels.append(date.strftime('%Y-%m-%d'))
+            all_messages.append(Message.objects.filter(creation_date__day=date.day, creation_date__month=date.month,
+                                                        creation_date__year=date.year).count())
+            user_messages.append(Message.objects.filter(creation_date__day=date.day, creation_date__month=date.month,
+                                                        creation_date__year=date.year,created_by=request.user).count())
+        labels.reverse()
+        all_messages.reverse()
+        user_messages.reverse()
+        data = {
+            "labels": labels,
+            "all": all_messages,
+            "user": user_messages
+        }
+
+        print(request.user)
+        return Response(data)

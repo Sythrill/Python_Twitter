@@ -2,6 +2,9 @@
     box-sizing: border-box;
 }
 
+.container {
+    margin-bottom: 50px;
+}
 body {
     margin: 0;
     padding: 0;
@@ -523,11 +526,16 @@ body {
     height: 450px;
 }
 
+.scrollable_message {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .password_form, .edit_form {
     margin-top: 50px;
 }
 
 .user-messages {
-    height: 44vh;
+    max-height: 44vh;
 
 }
