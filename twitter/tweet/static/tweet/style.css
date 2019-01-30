@@ -107,6 +107,7 @@ body {
     color: #11898f;
     margin-bottom: 5px;
 }
+
 .buttons_bar  i {
     margin: 3px;
     cursor: pointer;
@@ -117,6 +118,16 @@ body {
     font-size: 14px;
     color: #989898;
     margin: 5px;
+}
+
+.chat_ib p.post_content {
+    font-size: 20px;
+}
+
+span.likes {
+    align-self: right;
+    font-size: 12px;
+    margin-left: 10px;
 }
 
 .chat_ib {
@@ -538,4 +549,29 @@ body {
 .user-messages {
     max-height: 44vh;
 
+}
+
+.left {
+    padding: 1em;
+    text-align: left;
+    width: 600px;
+    height: 400px;
+}
+
+.right {
+    padding: 1em;
+    text-align: right;
+    width: 600px;
+    height: 400px;
+}
+
+.parent {
+    display: flex;
+    overflow: hidden;
+    margin: 1em 0;
+    align-items: center;
+}
+
+.parent > div {
+    flex: 1;
 }

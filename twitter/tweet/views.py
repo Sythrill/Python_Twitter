@@ -26,6 +26,7 @@ def date_generator():
         yield from_date
         from_date = from_date - datetime.timedelta(days=1)
 
+
 class LoginUserView(View):
     def get(self, request):
         form = LoginUserForm()
@@ -108,16 +109,17 @@ class MarkMessageView(LoginRequiredMixin, View):
 
 
 class LikeMessageView(LoginRequiredMixin, View):
-
     def get(self, request, msg_id):
-        Like.objects.get_or_create(user=request.user, message_id=msg_id)
+        to_like = Message.objects.get(pk=msg_id)
+        author = to_like.created_by
+        if author != request.user:
+            Like.objects.get_or_create(user=request.user, message_id=msg_id)
         return redirect("add_message")
 
 
 class AddCommentView(LoginRequiredMixin, PassRequestMixin, SuccessMessageMixin, CreateView):
     template_name = 'tweet/add_comment.html'
     form_class = AddCommentForm
-    success_message = 'Success: Book was created.'
     success_url = reverse_lazy('add_message')
 
     def form_valid(self, form):

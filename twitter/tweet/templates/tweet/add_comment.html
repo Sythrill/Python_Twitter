@@ -9,6 +9,7 @@
     </div>
 
     <div class="modal-body">
+        {% if message.created_by != user.username %}
         {% for field in form %}
             <div class="form-group{% if field.errors %} invalid{% endif %}">
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
@@ -18,6 +19,7 @@
                 {% endfor %}
             </div>
         {% endfor %}
+        {% endif %}
     </div>
 
     <div class="modal-footer">

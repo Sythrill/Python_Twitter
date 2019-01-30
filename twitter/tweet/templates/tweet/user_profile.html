@@ -197,13 +197,13 @@
     </div>
     <div class="container">
         <div class='row'>
-            <h3 style="margin: 0 auto">Last 7 Days Statistics</h3>
-            <div class='col-sm-12' url-endpoint='{% url "data_charts" %}'>
-                <div class='col-sm-6'>
-                    <canvas id="myChart" width="100px" height="50px"></canvas>
+            <h3>Last 7 Days Statistics</h3>
+            <div class='parent' url-endpoint='{% url "data_charts" %}'>
+                <div class='left'>
+                    <canvas id="myChart"></canvas>
                 </div>
-                <div class='col-sm-6'>
-                    <canvas id="myChart2" width="100px" height="50px"></canvas>
+                <div class='right'>
+                    <canvas id="myChart2"></canvas>
                 </div>
             </div>
         </div>

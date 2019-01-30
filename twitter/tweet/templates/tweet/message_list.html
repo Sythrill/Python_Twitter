@@ -7,7 +7,9 @@
                 <span class="chat_date">{{ message.creation_date }}</span>
             </h5>
             <p class="post_content">{{ message.content }}</p>
+
             <span class="buttons_bar">
+                {% if message.created_by != user %}
                 {% if message.is_read == True %}
                     <a href="{% url "mark" message.id %}"><button class="add-comment" type="button"><i
                             class="fa fa-envelope-open" aria-hidden="true"></i></button></a>
@@ -27,8 +29,10 @@
                         <i class="far fa-heart"></i>
                     </button></a>
                 {% endif %}
-                {{ message.like_set.count }}
-                </span>
+                {% endif %}
+                <span class="likes">{{ message.like_set.count }} likes this post</span>
+            </span>
+
 
         </div>
     </div>
